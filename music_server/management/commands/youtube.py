@@ -1,6 +1,8 @@
-import os
 import sys
+import glob
 import time
+import shutil
+import os.path
 import tempfile
 import subprocess
 
@@ -48,15 +50,15 @@ class Command(BaseCommand):
             item.state = 'd'
             item.save()
 
-            filename = tempfile.mktemp('.flv', 'youtube-')
+            tempdir = tempfile.mkdtemp('music-server-youtube')
             try:
                 cmd = ['youtube-dl']
                 if verbosity < 2:
                     cmd.append('--quiet')
-                cmd.extend(['-o', filename, item.uri])
+                cmd.extend(['--title', item.uri])
 
                 if verbosity > 1: print "Running '%s'" % " ".join(cmd)
-                retcode = subprocess.call(cmd)
+                retcode = subprocess.call(cmd, cwd=tempdir)
 
                 if verbosity > 1: print "youtube-dl returned with a status of %d" % retcode
 
@@ -65,7 +67,9 @@ class Command(BaseCommand):
                     item.save()
                     continue
 
-                location = upload_filename(item, item.uri)
+                filename = glob.glob(os.path.join(tempdir, '*'))[0]
+
+                location = upload_filename(item, 'youtube-%s' % filename.split('/')[-1])
                 if verbosity > 1: print "Saving file using Django storage engine to %s" % location
 
                 storage_name = default_storage.save(location, File(file(filename)))
@@ -78,7 +82,7 @@ class Command(BaseCommand):
             finally:
                 try:
                     if verbosity > 1: print "Going to delete temporary file"
-                    os.unlink(filename)
+                    shutil.rmtree(tempdir)
                 except OSError, e:
                     if e.errno != 2: # "No such file or directory"
                         raise
