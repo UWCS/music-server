@@ -1,4 +1,4 @@
 *.pyc
 *.sqlite
-*.tmpl
+music_server/local_settings.py
 music_server/media/*
