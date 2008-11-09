@@ -14,7 +14,7 @@
 {% for bucket in queue_bucket %}
 <ul class="bucket">
   {% for num, item in bucket.list %}
-    <li class="item {% ifequal item.state 'q' %}in{% endifequal %}">
+    <li id="item-{{ item.id }}" class="item {% ifequal item.state 'q' %}in{% endifequal %}">
       {% ifequal user item.user %}
       {% ifequal item.state 'q' %}
         <span class="impact">
