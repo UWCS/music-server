@@ -45,7 +45,7 @@ input {font:bold 1.25em Trebuchet MS;letter-spacing:-1px; padding-left: 1px;}
 #content #overview .item { padding-left: 0.5em; }
 #content .item.in {background:Rgb(191,245,163);border-bottom:4px solid Rgb(75,184,20);color:#000;font-size:1.25em;}
 #content .item.out  {background:Rgb(255,170,153);border-bottom:4px solid Rgb(255,42,0);color:#000;font-size:1.25em;}
-.itemdeleteanim { margin-bottom: -4px; display: none; }
+.ajax { margin-bottom: -4px; padding-right: 2px; }
 /* #content .item.comment {background:#eee;color:#666;font-size:0.8em;border:none;border-bottom:2px solid #999;}
 #content .item.idle {background:#ddd;border-bottom:4px solid #666;color:#000;font-size:1.25em;} */
 

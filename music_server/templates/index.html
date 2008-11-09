@@ -18,9 +18,10 @@
       {% ifequal user item.user %}
       {% ifequal item.state 'q' %}
         <span class="impact">
+	<img src="/site_media/img/ajax.gif" class="ajax" style="visibility: hidden;"/>
         <a href="{% url move-item "up" item.id %}">Up</a> -
         <a href="{% url move-item "down" item.id %}">Down</a> -
-        <a href="{% url delete-item item.id %}">Del</a>
+        <a class="delete-link" href="{% url delete-item item.id %}">Del</a>
         </span>
       {% endifequal %}
       {% endifequal %}
