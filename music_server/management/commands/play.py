@@ -37,7 +37,7 @@ class Command(BaseCommand):
                 item.state = 'p'
                 item.save()
 
-                cmd = ['mplayer', '-fs', '-af', 'volnorm', '4', item.file.path]
+                cmd = ['mplayer', '-fs', '-af', 'volnorm', item.file.path]
                 if verbosity > 1: print "Executing '%s'" % ' '.join(cmd)
 
                 start = datetime.datetime.now()
