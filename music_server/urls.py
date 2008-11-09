@@ -9,6 +9,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^$', 'music_server.views.index', name='index'),
     url(r'^a/youtube', 'music_server.views.youtube', name='youtube'),
+    url(r'^a/xhr_queue', 'music_server.views.xhr_queue', name='xhr-queue'),
 
     url(r'^a/item/delete/(?P<item_id>\d+)$', 'music_server.views.delete', name='delete-item'),
     url(r'^a/item/(?P<direction>(up|down))/(?P<item_id>\d+)$', 'music_server.views.move', name='move-item'),

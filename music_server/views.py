@@ -33,6 +33,11 @@ def index(request):
         'youtube_form': YouTubeForm(),
     }, RequestContext(request))
 
+def xhr_queue(request):
+    return render_to_response('queue.html', {
+        'queue': izip(count(1), Item.unplayed.all()),
+    }, RequestContext(request))
+
 def youtube(request):
     if request.method == 'POST':
         if not request.user.is_authenticated():
