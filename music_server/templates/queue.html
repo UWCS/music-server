@@ -3,7 +3,7 @@
 
 <ul class="bucket">
   {% for num, item in bucket.list %}
-    <li id="item-{{ item.id }}" class="item {% ifequal item.state 'q' %}in{% endifequal %}">
+    <li id="item-{{ item.id }}" class="item{% ifequal item.state 'q' %} in{% endifequal %}{% if item.is_new %} new{% endif %}"{% if item.is_new %} style="display: none;"{% endif %}>
       {% ifequal user item.user %}
       {% ifequal item.state 'q' %}
         <span class="impact">
