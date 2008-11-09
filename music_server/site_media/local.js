@@ -67,4 +67,33 @@ $(function() {
 
 		return false;
 	}
+
+	function refresh_queue() {
+		$('#refresh-ajax').show();
+
+		$.ajax({
+			url: '/a/xhr_queue',
+			success: function(html) {
+				$('#queue').html(html);
+			},
+			complete: function() {
+				$('#refresh-ajax').hide();
+			}
+		});
+
+		return false;
+	}
+
+	$('.refresh-link').click(function() {
+		return refresh_queue();
+	});
+
+	function auto_refresh() {
+		refresh_queue();
+		setTimeout(auto_refresh, 3000);
+	}
+
+	if ($('#queue')) {
+		setTimeout(auto_refresh, 3000);
+	}
 });
