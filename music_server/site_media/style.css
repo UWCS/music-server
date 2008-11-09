@@ -87,7 +87,7 @@ hr { height: 1px; background-color: #000; border: 0;}
 .bucket {
 	list-style-type: none;	
 	margin: 0;
-	padding: 0 0 8px 0;
+	padding: 0 0 12px 0;
 }
 
 #inline_upload {
