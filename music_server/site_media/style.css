@@ -39,7 +39,7 @@ input {font:bold 1.25em Trebuchet MS;letter-spacing:-1px; padding-left: 1px;}
 #content {margin:16px 22px 26px 22px;clear:both;}
 #content .item {margin:5px;padding:4px 4px 4px 6px;background:RGB(255,221,153);border-bottom:4px solid RGB(255,187,51);font-size:1.25em;}
 #content .item a:link, #content .item a:visited {color:#444;font-size:0.70em;text-decoration:none;font-weight:bold;}
-#content .item .from {font-size:0.65em;letter-spacing:0px;font-weight: bold;}
+#content .item .from {font-size:0.65em;letter-spacing:0px;font-weight: bold; cursor:help;}
 #content .item .impact { float:right; margin-right: 4px; font-size: 0.85em; letter-spacing:-1px; }
 #content .item abbr { cursor:help;}
 #content #overview .item { padding-left: 0.5em; }
