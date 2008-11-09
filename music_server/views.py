@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response, get_object_or_404
-from django.http import HttpResponseRedirect, HttpResponseForbidden
+from django.http import HttpResponseRedirect, HttpResponseForbidden, HttpResponse
 
 from music_server.forms import UploadForm, YouTubeForm
 from music_server.models import Item, YouTubeQueue
@@ -79,7 +79,14 @@ def delete(request, item_id):
 def move(request, direction, item_id):
     item = get_object_or_404(Item, id=item_id, user=request.user, state='q')
     if direction == 'up':
-        item.move_up()
+        val = item.move_up()
     else:
-        item.move_down()
+        val = item.move_down()
+
+    if request.is_ajax():
+        if val is None:
+            return HttpResponse(0)
+        else:
+            return HttpResponse(val.id)
+
     return HttpResponseRedirect(reverse('index'))

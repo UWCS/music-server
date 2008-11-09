@@ -83,6 +83,7 @@ class Item(models.Model):
                 self.lock_table()
                 other = Item.objects.filter(bucket__lt=self.bucket, user=self.user, state='q').order_by('-bucket')[0]
                 self._swap(self, other)
+                return other
             except IndexError:
                 # Don't allow item to arbitrarily move up a bucket
                 pass
@@ -95,6 +96,7 @@ class Item(models.Model):
                 self.lock_table()
                 other = Item.objects.filter(bucket__gt=self.bucket, user=self.user, state='q').order_by('bucket')[0]
                 self._swap(self, other)
+                return other
             except IndexError:
                 try:
                     max_bucket = Item.objects.all().order_by('-bucket').values_list('bucket', flat=True)[0]
