@@ -144,12 +144,14 @@ class Item(models.Model):
 
     @classmethod
     def lock_table(cls):
+        return
         if not settings.DATABASE_ENGINE.startswith('sqlite'):
             cursor = connection.cursor()
             cursor.execute('LOCK TABLES %s WRITE' % cls._meta.db_table)
 
     @classmethod
     def unlock_table(cls):
+        return
         if not settings.DATABASE_ENGINE.startswith('sqlite'):
             cursor = connection.cursor()
             cursor.execute('UNLOCK TABLES')
