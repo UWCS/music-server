@@ -11,6 +11,8 @@ jQuery.fn.swap = function(b) {
 };
 
 $(function() {
+	$('.new').slideDown();
+
 	$('.delete-link').click(function() {
 		var item = $(this).parents('li');
 		var item_id = item.attr('id').split('-', 2)[1];
@@ -75,6 +77,7 @@ $(function() {
 			url: '/a/xhr_queue',
 			success: function(html) {
 				$('#queue').html(html);
+				$('#queue .new').slideDown();
 			},
 			complete: function() {
 				$('#refresh-ajax').hide();
