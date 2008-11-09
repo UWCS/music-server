@@ -1,0 +1,106 @@
+
+html {min-height:100%;margin:0px;padding:0px;background:Url('img/gradient.jpg') bottom repeat-x #ffffff;}
+body {font:normal 1.0em Trebuchet MS;padding:32px;}
+a:link, a:visited {color:#000;font-weight:bold;}
+
+form {margin:0px;padding:0px;}
+
+#header {margin-bottom:32px;}
+#header h1 {font:bold 3.0em Trebuchet MS;letter-spacing:-2px;margin:0px;padding-left:20px;background:Url('img/logo.gif') 4px 13px no-repeat;}
+#header h1 a:link, #header h1 a:visited { text-decoration: none; }
+#header h2 {font:bold 1.3em Trebuchet MS;letter-spacing:-1px;margin:-4px 0px 0px 0px;line-height:100%;padding-left:20px;padding-bottom:8px;border-bottom:1px solid black;}
+
+#content .message {background:#eee;padding:5px;margin-bottom:3em;width:400px;border-bottom:2px solid #999;}
+
+#content .error { font-weight: bold; color: red; }
+
+label {padding-right: 15px; cursor:pointer;}
+input {font:bold 1.25em Trebuchet MS;letter-spacing:-1px; padding-left: 1px;}
+
+.add_item {
+	background:#eee;
+	padding: 1px 10px 10px 10px;
+	margin: 5px 15px 20px 5px;
+	border-bottom:2px solid #999;
+	display:block;
+}
+.add_item h2 {
+
+}
+.add_item label {
+	display: none;
+}
+.add_item #add_item_errors p { padding-top: 0.2em; } 
+.add_item #add_item_errors ul { list-style-type: none; }
+
+#current {text-align:right; font:normal 1.8em Trebuchet MS;color:#000;float:right;letter-spacing:-2px;padding:8px;margin-top:-96px;}
+#current small {display:block;margin-top:-5px;}
+
+#content {margin:16px 22px 26px 22px;clear:both;}
+#content .item {margin:5px;padding:4px 4px 4px 6px;background:RGB(255,221,153);border-bottom:4px solid RGB(255,187,51);font-size:1.25em;}
+#content .item a:link, #content .item a:visited {color:#444;font-size:0.70em;text-decoration:none;font-weight:bold;}
+#content .item .from {font-size:0.65em;letter-spacing:0px;font-weight: bold;}
+#content .item .impact { float:right; margin-right: 4px; font-size: 0.85em; letter-spacing:-1px; }
+#content .item abbr { cursor:help;}
+#content #overview .item { padding-left: 0.5em; }
+#content .item.in {background:Rgb(191,245,163);border-bottom:4px solid Rgb(75,184,20);color:#000;font-size:1.25em;}
+#content .item.out  {background:Rgb(255,170,153);border-bottom:4px solid Rgb(255,42,0);color:#000;font-size:1.25em;}
+.itemdeleteanim { margin-bottom: -4px; display: none; }
+/* #content .item.comment {background:#eee;color:#666;font-size:0.8em;border:none;border-bottom:2px solid #999;}
+#content .item.idle {background:#ddd;border-bottom:4px solid #666;color:#000;font-size:1.25em;} */
+
+#content .info { text-align: center; margin: 2em; font-size: 1.5em; color:Rgb(100,100,100); }
+
+#content #overview { width: 600px; margin: auto;}
+
+
+#content h1 { font-size: 2.0em; }
+#content p { margin-left: 10px;  }
+#content tt { background-color: lightgrey; padding: 3px; margin: 0px 10px 0 10px; font-size: 0.9em;}
+
+#main {clear:both;padding:0 40px 30px 40px; width: 65%;}
+hr { height: 1px; background-color: #000; border: 0;}
+
+#footer {clear:both;border-top:1px solid #000;padding-top:16px;}
+#footer .vr {border-left:1px solid black;font:1.5em Trebuchet MS;display:inline;margin:0px 12px;}
+#footer input {font:bold 1.25em Trebuchet MS;letter-spacing:-1px;}
+#footer input.text {width:30px;margin-right:6px;text-align:center;letter-spacing:-2px;}
+#footer input.button {margin-right:6px;}
+
+.inputform { font-weight: normal; }
+.inputform input {font:bold 1.25em Trebuchet MS;letter-spacing:0px;margin-bottom:5px; display: block; }
+.inputform input[type=text] {width:380px;}
+.inputform input[type=password] {width:380px;}
+.inputform h2 {margin-top: 2em;}
+.inputform input[type=submit] {margin: 0em 0 1em 4em;}
+.inputform label { float: left; width: 220px; font-weight: bold; }
+.inputform span { margin-left:150px; font-size:85%; }
+.inputform .errorlist  { margin: 10px 0px 10px 0px; color: red;font-weight:bold;}
+.inputform ul { margin: -6px 1em 1em 115px; }
+.inputform li { list-style-type: none; }
+
+.invisible { height: 0px; display: none; }
+
+#contact {font-size:0.8em;margin:4px;}
+#contact img { border: none; float: right; }
+
+.bucket {
+	list-style-type: none;	
+	margin: 0;
+	padding: 0 0 8px 0;
+}
+
+#inline_upload {
+	list-style-type: none;	
+	padding: 0;
+	display: block;
+	margin-left: 30px;
+}
+
+#inline_upload li {
+	float: left;
+}
+
+.clearboth {
+	clear: both;
+}

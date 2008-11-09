@@ -1,0 +1,11 @@
+{% if user.is_authenticated %}
+ <div class="add_item">
+  <h2>Upload file:</h2>
+  <form enctype="multipart/form-data" method="post" action="{% url index %}">
+    {{ upload_form.file }}
+    <input type="submit" value="Upload"/>
+  </form>
+ </div>
+{% else %}
+  <p>Please <a href="{% url login %}">login</a> or <a href="{% url register %}">register</a> to upload a file.</p>
+{% endif %}

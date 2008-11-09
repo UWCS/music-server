@@ -1,0 +1,13 @@
+{% if user.is_authenticated %}
+<ul id="inline_upload">
+  <li>
+    {% include "inline_form_upload.html" %}
+  </li>
+
+  <li>
+    {% include "inline_form_youtube.html" %}
+  </li>
+</ul>
+
+<div class="clearboth"></div>
+{% endif %}

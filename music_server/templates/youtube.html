@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}YouTube Downloads{% endblock %}
+
+{% block content %}
+
+{% include "inline_form_youtube.html" %}
+
+<h2>Download queue</h2>
+<table>
+<tr>
+ <th>#</th>
+ <th>URI</th>
+ <th>User</th>
+ <th>State</th>
+</tr>
+{% for item in queue %}
+<tr>
+ <td>{{ forloop.counter }}</td>
+ <td>{{ item.uri|urlize }}</td>
+ <td>{{ item.user }}</td>
+ <td class="state-{{ item.state }}">{{ item.str_state }}</td>
+</tr>
+{% endfor %}
+</tr>
+</table>
+
+{% if failed %}
+
+<h2>5 last failed URIs</h2>
+<table>
+<tr>
+ <th>URI</th>
+ <th>User</th>
+</tr>
+{% for item in failed %}
+<tr>
+ <td>{{ item.uri|urlize }}</td>
+ <td>{{ item.user }}</td>
+</tr>
+{% endfor %}
+</tr>
+</table>
+{% endif %}
+
+{% endblock %}

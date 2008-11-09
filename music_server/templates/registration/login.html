@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Log in{% endblock %}
+
+{% block content %}
+
+<h1>Login</h1>
+
+<div class="inputform">
+  <form action="{% url login %}" method="post">
+    <input type="hidden" name="next" value="{{ next }}" />
+    {{ form.as_ul }}
+    <p><input type="submit" value="Log in" /></p>
+  </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,12 @@
+{% if user.is_authenticated %}
+
+ <div class="add_item">
+	<h2>Add YouTube video URI:</h2>
+	<form method="post" action="{% url youtube %}">
+		{{ youtube_form.uri }}
+		<input type="submit" value="Download"/>
+	</form>
+  </div>
+{% else %}
+  <p>Please <a href="{% url login %}">login</a> or <a href="{% url register %}">register</a> to upload a file.</p>
+{% endif %}

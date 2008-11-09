@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<title>Music server :: {% block title %}{% endblock %}</title>
+
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="robots" content="indexall,followall" />
+<meta name="revisit" content="7 days" />
+
+<link rel="stylesheet" type="text/css" href="/site_media/style.css" media="screen"/>
+<!-- <script language="javascript" src="/site_media/jquery.js"></script> -->
+
+<body>
+
+<div id="header">
+	<h1><a href="{% url index %}">Music server</a></h1>
+	<h2>Oh hai guys, I reimplemented ur music server.</h2>
+</div>
+
+<div id="current">
+
+  {% if user.is_authenticated %}
+
+    Logged in as <strong>{{ user }}</strong>
+    <small>
+    <a href="{% url index %}">Home</a> -
+    <a href="{% url youtube %}">YouTube</a> -
+    <a href="{% url logout %}">Logout</a>
+    </small>
+
+	{% else %}
+
+	  <a href="{% url register %}">Register</a> or <a href="{% url login %}">Login</a>
+
+	{% endif %}
+</div>
+
+<div id="content">{% block content %}{% endblock %}</div>
+
+<hr/>
+
+<div id="contact">
+	<a href="http://chris-lamb.co.uk/"><img src="/site_media/img/by-lamby.png" alt="By Lamby"/></a>
+	<!-- Powered by <a href="http://git.
+<h2>5 last failed URIs</h2>chris-lamb.co.uk/?p=mytab.git">MyTab</a>. --> Copyright &copy; 2008 <a href="http://chris-lamb.co.uk/">Chris Lamb</a>. Design by <a href="http://www.modernlifeisrubbish.co.uk/">Stuart Brown</a>.
+	<!-- <br/>Released under the GNU Affero General Public License v3.0+. <a href="">Download.</a> -->
+
+</div>
+
+</body>
+</html>

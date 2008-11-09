@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+{% include "inline_upload.html" %}
+
+{% regroup queue by 1.bucket as queue_bucket %}
+{% for bucket in queue_bucket %}
+<ul class="bucket">
+  {% for num, item in bucket.list %}
+    <li class="item {% ifequal item.state 'q' %}in{% endifequal %}">
+      {% ifequal user item.user %}
+      {% ifequal item.state 'q' %}
+        <span class="impact">
+        <a href="{% url move-item "up" item.id %}">Up</a> -
+        <a href="{% url move-item "down" item.id %}">Down</a> -
+        <a href="{% url delete-item item.id %}">Del</a>
+        </span>
+      {% endifequal %}
+      {% endifequal %}
+      <strong>{{ item.str_filename }}</strong> {% ifequal item.state 'p' %}(playing){% endifequal %}
+      <small>queued by <span class="from">{{ item.user }}</span></small>
+    </li>
+  {% endfor %}
+</ul>
+
+{% endfor %}
+
+{% endblock %}
