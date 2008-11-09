@@ -1,4 +1,5 @@
 import re
+import datetime
 
 from django.db import models
 from django.db import connection
@@ -43,6 +44,9 @@ class Item(models.Model):
             'bucket': self.bucket,
             'pos': self.pos,
         }
+
+    def is_new(self):
+        return datetime.datetime.now() < self.added + datetime.timedelta(seconds=2)
 
     def save(self, *args, **kwargs):
         if self.id:
