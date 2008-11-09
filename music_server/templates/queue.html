@@ -1,0 +1,23 @@
+{% regroup queue by 1.bucket as queue_bucket %}
+{% for bucket in queue_bucket %}
+
+<ul class="bucket">
+  {% for num, item in bucket.list %}
+    <li id="item-{{ item.id }}" class="item {% ifequal item.state 'q' %}in{% endifequal %}">
+      {% ifequal user item.user %}
+      {% ifequal item.state 'q' %}
+        <span class="impact">
+	<img src="/site_media/img/ajax.gif" class="ajax" style="visibility: hidden;"/>
+        <a class="up-link" href="{% url move-item "up" item.id %}">Up</a> -
+        <a class="down-link" href="{% url move-item "down" item.id %}">Down</a> -
+        <a class="delete-link" href="{% url delete-item item.id %}">Del</a>
+        </span>
+      {% endifequal %}
+      {% endifequal %}
+      <strong>{{ item.str_filename }}</strong> {% ifequal item.state 'p' %}(playing){% endifequal %}
+      <small>queued by <span class="from" title="Added by {{ item.ip }}">{{ item.user }}</span></small>
+    </li>
+  {% endfor %}
+</ul>
+
+{% endfor %}
