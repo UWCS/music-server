@@ -25,7 +25,7 @@
       {% endifequal %}
       {% endifequal %}
       <strong>{{ item.str_filename }}</strong> {% ifequal item.state 'p' %}(playing){% endifequal %}
-      <small>queued by <span class="from">{{ item.user }}</span></small>
+      <small>queued by <span class="from" title="Added by {{ item.ip }}">{{ item.user }}</span></small>
     </li>
   {% endfor %}
 </ul>
