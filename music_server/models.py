@@ -26,6 +26,7 @@ class Item(models.Model):
     file = models.FileField(upload_to=upload_filename)
     ip = models.IPAddressField()
     state = models.CharField(max_length=1, choices=CHOICES, default='q')
+    added = models.DateTimeField(auto_now_add=True, null=True)
 
     objects = models.Manager()
     unplayed = UnplayedItemManager()
