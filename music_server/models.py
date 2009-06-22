@@ -63,7 +63,10 @@ class Item(models.Model):
                         self.bucket += 1
 
                 except IndexError:
-                    self.bucket = 1
+                    try:
+                        self.bucket = Item.objects.latest('bucket').bucket+1
+                    except Item.DoesNotExist:
+                        self.bucket = 1
 
                 try:
                     self.pos = Item.objects.filter(bucket=self.bucket).order_by('-pos').values_list('pos', flat=True)[0] + 1
