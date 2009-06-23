@@ -20,10 +20,7 @@ def index(request):
             return HttpResponseRedirect('%s?next=%s' % (reverse('login', request.path)))
 
         form = UploadForm(request.POST, request.FILES)
-        try:
-            return save_and_commit(form,'index',request)
-        except ValueError:
-            pass
+        return save_and_commit(form,'index',request,'file')
     else:
         form = UploadForm()
 
@@ -43,10 +40,10 @@ def spotify(request):
             return HttpResponseRedirect('%s?next=%s' % (reverse('login', request.path)))
 
         form = SpotifyForm(request.POST)
-        return save_and_commit(form,'index',request)
+        return save_and_commit(form,'index',request,'spotify')
 
-def save_and_commit(form,redir,request):
-    if form.is_valid():
+def save_and_commit(form,redir,request,field):
+    if form.is_valid() and form.cleaned_data[field]:
         q = form.save(commit=False)
         q.user = request.user
         q.ip = request.META.get('REMOTE_ADDR')
@@ -60,7 +57,7 @@ def save_and_commit(form,redir,request):
         q.save()
         return HttpResponseRedirect(reverse(redir))
     else:
-        raise ValueError
+        return HttpResponseRedirect(reverse('index'))
 
 def xhr_queue(request):
     return render_to_response('queue.html', {
@@ -73,10 +70,7 @@ def youtube(request):
             return HttpResponseRedirect('%s?next=%s' % (reverse('login', request.path)))
 
         form = YouTubeForm(request.POST)
-        try:
-            return save_and_commit(form,'youtube',request)
-        except ValueError:
-            pass
+        return save_and_commit(form,'youtube',request,'uri')
     else:
         form = YouTubeForm()
 
