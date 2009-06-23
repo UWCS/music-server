@@ -21,7 +21,7 @@
 		  {% endif %}
       {% endifequal %}
 	  {% endifequal %}
-	  <strong>{% if item.file %}{{ item.str_filename }}{% else %}{{ item.str_spotify }}{% endif %}</strong>
+	  <strong>{{ item.get_title }}</strong>
 
 	  {% ifequal item.state 'p' %}(playing){% endifequal %}
       <small>queued by <span class="from" title="Added by {{ item.ip }}">{{ item.user }}</span></small>

@@ -12,6 +12,8 @@ from django.http import HttpResponseRedirect, HttpResponseForbidden, HttpRespons
 from music_server.forms import UploadForm, YouTubeForm, SpotifyForm
 from music_server.models import Item, YouTubeQueue
 
+from tagging import get_name,spotify_name
+
 def index(request):
     if request.method == 'POST':
         if not request.user.is_authenticated():
@@ -48,6 +50,16 @@ def save_and_commit(form,redir,request):
         q = form.save(commit=False)
         q.user = request.user
         q.ip = request.META.get('REMOTE_ADDR')
+        q.save()
+        #FAIL = "before"
+        if q.file:
+            q.title = get_name(q.file.path)[:255]
+        #    FAIL += "IN WRONG CASE"
+        else:
+            q.title = spotify_name(q.spotify)[:255]
+        #    FAIL += "IN CORRECT CASE" + q.title + " RAGE " + q.spotify
+
+        #q.title = FAIL
         q.save()
         return HttpResponseRedirect(reverse(redir))
     else:

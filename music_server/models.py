@@ -26,6 +26,7 @@ class Item(models.Model):
 
     file = models.FileField(upload_to=upload_filename, blank=True)
     spotify = models.CharField(max_length=255, blank=True)
+    title = models.CharField(max_length=255, blank=True)
     ip = models.IPAddressField()
     state = models.CharField(max_length=1, choices=CHOICES, default='q')
     added = models.DateTimeField(auto_now_add=True, null=True)
@@ -86,8 +87,13 @@ class Item(models.Model):
         except IndexError:
             return self.file.name
     
-    def str_spotify(self):
-        return self.spotify
+    def get_title(self):
+        if self.title:
+            return self.title
+        elif self.spotify:
+            return self.spotify
+        else:
+            return self.str_filename()
 
     def move_up(self):
         try:
