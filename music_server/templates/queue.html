@@ -21,7 +21,7 @@
 		  {% endif %}
       {% endifequal %}
 	  {% endifequal %}
-	  <strong>{{ item.get_title }}</strong>
+	  <strong>{% if item.spotify %}<a href="{{ item.spotify }}">{{ item.get_title }}</a>{%else%}{{ item.get_title }}{%endif%}</strong>
 
 	  {% ifequal item.state 'p' %}(playing){% endifequal %}
       <small>queued by <span class="from" title="Added by {{ item.ip }}">{{ item.user }}</span></small>

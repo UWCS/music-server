@@ -51,15 +51,12 @@ def save_and_commit(form,redir,request):
         q.user = request.user
         q.ip = request.META.get('REMOTE_ADDR')
         q.save()
-        #FAIL = "before"
-        if q.file:
-            q.title = get_name(q.file.path)[:255]
-        #    FAIL += "IN WRONG CASE"
-        else:
-            q.title = spotify_name(q.spotify)[:255]
-        #    FAIL += "IN CORRECT CASE" + q.title + " RAGE " + q.spotify
+        if redir != 'youtube':
+            if q.file:
+                q.title = get_name(q.file.path)[:255]
+            else:
+                q.title = spotify_name(q.spotify)[:255]
 
-        #q.title = FAIL
         q.save()
         return HttpResponseRedirect(reverse(redir))
     else:
