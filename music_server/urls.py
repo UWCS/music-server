@@ -8,6 +8,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', 'music_server.views.index', name='index'),
+    url(r'^a/spotify', 'music_server.views.spotify', name='spotify'),
     url(r'^a/youtube', 'music_server.views.youtube', name='youtube'),
     url(r'^a/xhr_queue', 'music_server.views.xhr_queue', name='xhr-queue'),
 

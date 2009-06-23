@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponseForbidden, HttpResponse
 
-from music_server.forms import UploadForm, YouTubeForm
+from music_server.forms import UploadForm, YouTubeForm, SpotifyForm
 from music_server.models import Item, YouTubeQueue
 
 def index(request):
@@ -18,12 +18,10 @@ def index(request):
             return HttpResponseRedirect('%s?next=%s' % (reverse('login', request.path)))
 
         form = UploadForm(request.POST, request.FILES)
-        if form.is_valid():
-            q = form.save(commit=False)
-            q.user = request.user
-            q.ip = request.META.get('REMOTE_ADDR')
-            q.save()
-            return HttpResponseRedirect(reverse('index'))
+        try:
+            return save_and_commit(form,'index',request)
+        except ValueError:
+            pass
     else:
         form = UploadForm()
 
@@ -31,7 +29,29 @@ def index(request):
         'queue': izip(count(1), Item.unplayed.all()),
         'upload_form': form,
         'youtube_form': YouTubeForm(),
+        'spotify_form': SpotifyForm(),
     }, RequestContext(request))
+
+def spotify(request):
+    '''
+        Uses index for rendering
+    '''
+    if request.method == 'POST':
+        if not request.user.is_authenticated():
+            return HttpResponseRedirect('%s?next=%s' % (reverse('login', request.path)))
+
+        form = SpotifyForm(request.POST)
+        return save_and_commit(form,'index',request)
+
+def save_and_commit(form,redir,request):
+    if form.is_valid():
+        q = form.save(commit=False)
+        q.user = request.user
+        q.ip = request.META.get('REMOTE_ADDR')
+        q.save()
+        return HttpResponseRedirect(reverse(redir))
+    else:
+        raise ValueError
 
 def xhr_queue(request):
     return render_to_response('queue.html', {
@@ -44,12 +64,10 @@ def youtube(request):
             return HttpResponseRedirect('%s?next=%s' % (reverse('login', request.path)))
 
         form = YouTubeForm(request.POST)
-        if form.is_valid():
-            q = form.save(commit=False)
-            q.user = request.user
-            q.ip = request.META.get('REMOTE_ADDR')
-            q.save()
-            return HttpResponseRedirect(reverse('youtube'))
+        try:
+            return save_and_commit(form,'youtube',request)
+        except ValueError:
+            pass
     else:
         form = YouTubeForm()
 
@@ -77,7 +95,10 @@ def register(request):
 
 @login_required
 def delete(request, item_id):
-    get_object_or_404(Item, id=item_id, user=request.user, state='q').delete()
+    if request.user.is_staff:
+        get_object_or_404(Item, id=item_id, state='q').delete()
+    else:
+        get_object_or_404(Item, id=item_id, user=request.user, state='q').delete()
     return HttpResponseRedirect(reverse('index'))
 
 @login_required

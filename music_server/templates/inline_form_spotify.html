@@ -1,0 +1,11 @@
+{% if user.is_authenticated %}
+ <div class="add_item">
+	<h2>Add Spotify URL:</h2>
+	<form method="post" action="{% url spotify %}">
+		{{ spotify_form.spotify }}
+		<input type="submit" value="Stream"/>
+	</form>
+  </div>
+{% else %}
+  <p>Please <a href="{% url login %}">login</a> or <a href="{% url register %}">register</a> to upload a file.</p>
+{% endif %}

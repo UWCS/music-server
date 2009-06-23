@@ -24,7 +24,8 @@ class Item(models.Model):
     bucket = models.IntegerField()
     pos = models.IntegerField()
 
-    file = models.FileField(upload_to=upload_filename)
+    file = models.FileField(upload_to=upload_filename, blank=True)
+    spotify = models.CharField(max_length=255, blank=True)
     ip = models.IPAddressField()
     state = models.CharField(max_length=1, choices=CHOICES, default='q')
     added = models.DateTimeField(auto_now_add=True, null=True)
@@ -38,7 +39,7 @@ class Item(models.Model):
 
     def __unicode__(self):
         return '%(file)s (state: %(state)s) queued by %(user)s (bucket %(bucket)d, position %(pos)d)' % {
-            'file': self.file,
+            'file': self.file if self.file else self.spotify,
             'state': self.state,
             'user': self.user,
             'bucket': self.bucket,
@@ -84,6 +85,9 @@ class Item(models.Model):
             return self.file.name.split('/', 1)[1]
         except IndexError:
             return self.file.name
+    
+    def str_spotify(self):
+        return self.spotify
 
     def move_up(self):
         try:
@@ -121,6 +125,9 @@ class Item(models.Model):
             super(Item, self).delete()
         finally:
             self.unlock_table()
+
+    def can_modify(self,user):
+        return self.user == user or user.is_staff
 
     @classmethod
     def _swap(cls, item_1, item_2):

@@ -1,4 +1,4 @@
-from django.forms import forms, ModelForm
+from django.forms import forms, ModelForm, CharField
 
 from music_server.models import Item, YouTubeQueue
 
@@ -11,3 +11,8 @@ class YouTubeForm(ModelForm):
     class Meta:
         model = YouTubeQueue
         fields = ('uri',)
+
+class SpotifyForm(ModelForm):
+    class Meta:
+        model = Item
+        fields = ('spotify',)

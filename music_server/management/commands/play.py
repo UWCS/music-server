@@ -37,16 +37,20 @@ class Command(BaseCommand):
                 item.state = 'p'
                 item.save()
 
-                cmd = ['mplayer', '-fs', '-af', 'volnorm', item.file.path]
+                if item.file:
+                    cmd = ['mplayer', '-fs', '-af', 'volnorm', item.file.path]
+                else:
+                    cmd = ['./spotify.sh',item.spotify]
+
                 if verbosity > 1: print "Executing '%s'" % ' '.join(cmd)
 
                 start = datetime.datetime.now()
                 p = subprocess.Popen(cmd)
                 while p.poll() is None:
                     if datetime.datetime.now() > start + datetime.timedelta(minutes=28):
-                        if verbosity > 1: print "Killing mplayer after timeout"
+                        if verbosity > 1: print "Killing music player after timeout"
                         os.kill(p.pid, signal.SIGHUP)
-                    time.sleep(1)
+                        time.sleep(1)
 
                 item.state = 'x'
                 item.save()

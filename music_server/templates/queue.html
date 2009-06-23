@@ -4,17 +4,26 @@
 <ul class="bucket">
   {% for num, item in bucket.list %}
     <li id="item-{{ item.id }}" class="item{% ifequal item.state 'q' %} in{% endifequal %}{% if item.is_new %} new{% endif %}"{% if item.is_new %} style="display: none;"{% endif %}>
-      {% ifequal user item.user %}
       {% ifequal item.state 'q' %}
+      {% ifequal item.user user %}
         <span class="impact">
 	<img src="/site_media/img/ajax.gif" class="ajax" style="visibility: hidden;"/>
         <a class="up-link" href="{% url move-item "up" item.id %}">Up</a> -
         <a class="down-link" href="{% url move-item "down" item.id %}">Down</a> -
         <a class="delete-link" href="{% url delete-item item.id %}">Del</a>
-        </span>
+	</span>
+	  {% else %}
+		  {% if user.is_staff %}
+			<span class="impact">
+		<img src="/site_media/img/ajax.gif" class="ajax" style="visibility: hidden;"/>
+			<a class="delete-link" href="{% url delete-item item.id %}">Del</a>
+			</span>
+		  {% endif %}
       {% endifequal %}
-      {% endifequal %}
-      <strong>{{ item.str_filename }}</strong> {% ifequal item.state 'p' %}(playing){% endifequal %}
+	  {% endifequal %}
+	  <strong>{% if item.file %}{{ item.str_filename }}{% else %}{{ item.str_spotify }}{% endif %}</strong>
+
+	  {% ifequal item.state 'p' %}(playing){% endifequal %}
       <small>queued by <span class="from" title="Added by {{ item.ip }}">{{ item.user }}</span></small>
     </li>
   {% endfor %}
