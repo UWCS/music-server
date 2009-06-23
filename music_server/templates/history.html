@@ -1,0 +1,20 @@
+{% extends "index.html" %}
+
+{% block title %}History for {{ history_user.username }}{% endblock %}
+
+{% block header %}
+	<div id="header">
+		<h1><a href="{% url index %}">Music server</a></h1>
+		<h2>History for {{ history_user.username }}</h2>
+	</div>
+{% endblock %}
+
+{% block content %}
+	<div>
+		<ul>
+		{% for item in history %}
+			<li class="item in">{{ item.get_title }}</li>
+		{% endfor %}
+		</ul>
+	</div>
+{% endblock %}

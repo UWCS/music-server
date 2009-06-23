@@ -2,11 +2,12 @@ from itertools import count, izip
 
 from django.db import connection
 from django.contrib.auth import login, authenticate
+from django.contrib.auth.models import User
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
 from django.http import HttpResponseRedirect, HttpResponseForbidden, HttpResponse
 
 from music_server.forms import UploadForm, YouTubeForm, SpotifyForm
@@ -30,6 +31,13 @@ def index(request):
         'youtube_form': YouTubeForm(),
         'spotify_form': SpotifyForm(),
     }, RequestContext(request))
+
+def history(request,user_id):
+    return render_to_response('history.html', {
+        'history_user':get_object_or_404(User,id=user_id),
+        'history': get_list_or_404(Item,user__id=user_id),
+    }, RequestContext(request))
+
 
 def spotify(request):
     '''
