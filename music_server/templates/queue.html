@@ -21,7 +21,7 @@
 		  {% endif %}
       {% endifequal %}
 	  {% endifequal %}
-	  <strong>{% if item.spotify %}<a href="{{ item.spotify }}">{{ item.get_title }}</a>{%else%}{{ item.get_title }}{%endif%}</strong>
+	  <a href="{% if item.spotify %}{{ item.spotify }}{%else%}/uploaded/{{ item.file.url }}{%endif%}"><strong>{{ item.get_title }}</strong></a>
 
 	  {% ifequal item.state 'p' %}(playing){% endifequal %}
       <small>queued by <span class="from" title="Added by {{ item.ip }}">{{ item.user }}</span></small>

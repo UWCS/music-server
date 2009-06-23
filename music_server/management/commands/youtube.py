@@ -14,6 +14,10 @@ from django.core.management.base import BaseCommand
 from django.core.files.storage import default_storage
 
 from music_server.models import Item, YouTubeQueue, upload_filename
+from urllib import urlopen
+import re
+
+regexp = re.compile(r'<title>YouTube - ([^<]*)</title>', re.M | re.I)
 
 class Command(BaseCommand):
     option_list = BaseCommand.option_list + (
@@ -74,8 +78,11 @@ class Command(BaseCommand):
 
                 storage_name = default_storage.save(location, File(file(filename)))
 
+                content = urlopen(item.uri).read()
+                title = regexp.search(content).group(1)
+
                 if verbosity > 1: print "Creating new Item object"
-                Item.objects.create(user=item.user, ip=item.ip, file=storage_name)
+                Item.objects.create(user=item.user, ip=item.ip, file=storage_name,title=title)
 
                 if verbosity > 1: print "Deleting queue object"
                 item.delete()
