@@ -10,6 +10,8 @@ def get_name(file):
         return "%s -- %s -- %s" % (info['artist'][0],info['album'][0],info['title'][0])
     except ValueError:
         return ""
+    except KeyError:
+        return ""
 
 def get_info(file):
     if file.endswith('mp3'):
