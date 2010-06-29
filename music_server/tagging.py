@@ -2,6 +2,7 @@ from mutagen.mp3 import MP3
 from mutagen.easyid3 import EasyID3
 from mutagen.flac import FLAC
 from mutagen.oggvorbis import OggVorbis
+from mutagen.asf import ASF
 from os import popen
 
 def get_name(file):
@@ -11,7 +12,10 @@ def get_name(file):
     except ValueError:
         return ""
     except KeyError:
-        return ""
+        try:
+            return "%s -- %s" % (info['Author'][0],info['Title'][0])
+        except KeyError:
+            return ""
 
 def get_info(file):
     if file.endswith('mp3'):
@@ -20,6 +24,8 @@ def get_info(file):
         return FLAC(file)
     elif file.endswith('ogg'):
         return OggVorbis(file)
+    elif file.endswith('wma'):
+        return ASF(file)
     else:
         raise ValueError
 
