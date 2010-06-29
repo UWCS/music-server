@@ -93,10 +93,10 @@ $(function() {
 
 	function auto_refresh() {
 		refresh_queue();
-		setTimeout(auto_refresh, 3000);
+		setTimeout(auto_refresh, 30000);
 	}
 
 	if ($('#queue')) {
-		setTimeout(auto_refresh, 3000);
+		setTimeout(auto_refresh, 30000);
 	}
 });

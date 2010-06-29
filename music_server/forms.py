@@ -16,3 +16,8 @@ class SpotifyForm(ModelForm):
     class Meta:
         model = Item
         fields = ('spotify',)
+
+class ResubmitForm(ModelForm):
+    class Meta:
+        model = Item
+        fields = ('id',)

@@ -38,7 +38,7 @@ class Command(BaseCommand):
                 item.save()
 
                 if item.file:
-                    cmd = ['mplayer', '-fs', '-af', 'volnorm', item.file.path]
+                    cmd = ['mplayer', '-fs', '-af', 'volnorm', '-vo', 'sdl', item.file.path]
                 else:
                     cmd = ['./spotify.sh',item.spotify]
 
@@ -50,7 +50,7 @@ class Command(BaseCommand):
                     if datetime.datetime.now() > start + datetime.timedelta(minutes=28):
                         if verbosity > 1: print "Killing music player after timeout"
                         os.kill(p.pid, signal.SIGHUP)
-                        time.sleep(1)
+                    time.sleep(1)
 
                 item.state = 'x'
                 item.save()
