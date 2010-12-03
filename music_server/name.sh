@@ -6,4 +6,4 @@ set -eu
 
 cd /home/music-server/despot2/src/clients/simple
 
-./simple fauxfaux omgpenis $1
+./simple fauxfaux penis $1
