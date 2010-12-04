@@ -9,6 +9,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
 from django.http import HttpResponseRedirect, HttpResponseForbidden, HttpResponse
+from django.forms import forms
 
 from music_server.forms import UploadForm, YouTubeForm, SpotifyForm
 from music_server.models import Item, YouTubeQueue
@@ -20,7 +21,7 @@ def index(request):
         if not request.user.is_authenticated():
             return HttpResponseRedirect('%s?next=%s' % (reverse('login', request.path)))
 
-        form = UploadForm(request.POST, request.FILES)
+        form = UploadForm(request.POST, request.FILES, request=request)
         return save_and_commit(form,'index',request,'file')
     else:
         form = UploadForm()
