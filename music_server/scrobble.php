@@ -44,7 +44,7 @@ curl_setopt($ch, CURLOPT_URL,$url);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER,true);
 $return = curl_exec($ch);
 
-exec("mplayer -nosound \"$argv[1]\" 2>/dev/null|grep -E 'Artist|Title|Album|Year|Comment|Track|Genre|AUDIO'", $label); 		//Bash expression for getting track data from mplayer's output
+exec("mplayer -nosound \"$argv[1]\" 2>/dev/null|grep -Ei 'Name|Artist|Author|Title|Album|Year|Comment|Track|Genre|AUDIO'", $label); 		//Bash expression for getting track data from mplayer's output
 
 $stats = Array(); 		//New array for track data
 
@@ -52,27 +52,28 @@ foreach($label as $data)
 {
 	if(preg_match("/ ?(.*): (.*)/",$data,$res))
 	{
-		$stats[$res[1]] = $res[2];	//Put track data into associate array.	
+		$stats[strtolower($res[1])] = $res[2];	//Put track data into associate array.	
 	}
 }
 
-if (isset($stats['Title']) && isset($stats['Artist'])) {	//Only scrobble if Track and Artist information is present
+if ((isset($stats['title']) || isset($stats['name'])) && (isset($stats['artist']) || isset($stats['author']))) {	//Only scrobble if Track and Artist information is present
 
 	//Array with parameters drawn from cmd-line arguments.
 	$paras = array (
-			"track"  => $stats['Title'],
-			"artist" => $stats['Artist'],
+			"track"  => $stats['title'],
+			"artist" => $stats['artist'],
 			"method" => "track.scrobble",
 			"timestamp" => time(),
 			"sk" => json_decode($return)->{'session'}->{'key'},
 			"api_key" => API_KEY
 		       );
-}
 
-if (isset($stats['Album'])) {$paras['album'] = $stats['Album'];} //Optional Album extra.
+
+if (isset($stats['album'])) {$paras['album'] = $stats['album'];} //Optional Album extra.
 
 //SCROBBLE TIME
 scrobble($paras);
+}
 
 function scrobble($data) {
 
