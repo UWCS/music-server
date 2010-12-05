@@ -12,10 +12,10 @@
 
  */
 
-define(API_KEY, 'b4d56d1faf13d849e0fb12e87cb8c443');
-define(SEKRIT, 'c3c7c633a384ae00025b836d0f369b9d');
-define(NAME, 'uwcslan');
-define(PWD, 'ponies2010');	//OMG PONIES!
+define(API_KEY, 'placeholder');
+define(SEKRIT, 'placeholder');
+define(NAME, 'placeholder');
+define(PWD, 'placeholder');	//OMG PONIES!
 
 //Generate authorisation key for auth.getMobileSession
 $auth = md5(utf8_encode(NAME.md5(utf8_encode(PWD))));
