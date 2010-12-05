@@ -38,6 +38,8 @@ class Command(BaseCommand):
                 item.save()
 
                 if item.file:
+                    scrobble = ['./scrobble.php', item.file.path]
+                    subprocess.Popen(scrobble)
                     cmd = ['mplayer', '-fs', '-af', 'volnorm', '-vo', 'sdl', item.file.path]
                 else:
                     cmd = ['./spotify.sh',item.spotify]
