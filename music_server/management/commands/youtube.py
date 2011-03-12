@@ -21,9 +21,9 @@ import re
 
 class Command(BaseCommand):
     option_list = BaseCommand.option_list + (
-        make_option('--verbosity', action='store', dest='verbosity', default='1',
-            type='choice', choices=['0', '1', '2'],
-            help='Verbosity level; 0=minimal output, 1=normal output, 2=all output'),
+        #make_option('--verbosity', action='store', dest='verbosity', default='1',
+        #    type='choice', choices=['0', '1', '2'],
+        #    help='Verbosity level; 0=minimal output, 1=normal output, 2=all output'),
         #make_option('--daemonise', action='store_true', dest='daemonise', default=False,
         #    help='Daemonise'),
     )
@@ -56,7 +56,7 @@ class Command(BaseCommand):
 
             tempdir = tempfile.mkdtemp('music-server-youtube')
             try:
-                cmd = ['/home/music-server/youtube-dl','--max-quality=22']
+                cmd = [settings.YOUTUBE_DL,'--max-quality=22']
                 if verbosity < 2:
                     cmd.append('--quiet')
                 cmd.extend(['--title', item.uri])
