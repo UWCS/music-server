@@ -44,7 +44,9 @@ curl_setopt($ch, CURLOPT_URL,$url);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER,true);
 $return = curl_exec($ch);
 
-exec("mplayer -nosound \"$argv[1]\" 2>/dev/null|grep -Ei 'Name|Artist|Author|Title|Album|Year|Comment|Track|Genre|AUDIO'", $label); 		//Bash expression for getting track data from mplayer's output
+$label = array();
+exec("mplayer -frames 0 -vc null -vo null \"$argv[1]\" 2>/dev/null|grep -Ei 'Name|Artist|Author|Title|Album|Year|Comment|Track|Genre|AUDIO'", $label); 		//Bash expression for getting track data from mplayer's output
+//exec("killall mplayer");
 
 $stats = Array(); 		//New array for track data
 

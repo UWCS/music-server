@@ -56,7 +56,7 @@ class Command(BaseCommand):
 
             tempdir = tempfile.mkdtemp('music-server-youtube')
             try:
-                cmd = ['youtube-dl']
+                cmd = ['/home/music-server/youtube-dl','--max-quality=22']
                 if verbosity < 2:
                     cmd.append('--quiet')
                 cmd.extend(['--title', item.uri])
