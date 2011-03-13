@@ -28,6 +28,7 @@ urlpatterns = patterns('',
         {'template': 'registration/password_changed.html'}, name='password_change_success'),
 
     url(r'^a/admin/(.*)', admin.site.root),
+    url(r'^uploaded/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),
 )
 
 if settings.DEBUG:
