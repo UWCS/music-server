@@ -2,3 +2,4 @@
 *.sqlite
 music_server/local_settings.py
 music_server/media/*
+!music_server/media/.gitignore
